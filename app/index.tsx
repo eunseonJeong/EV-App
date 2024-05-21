@@ -59,7 +59,10 @@ export default function Page() {
           {/* </NavigationContainer> */}
         </SignedIn>
         <SignedOut>
-          <LoginScreen />
+          {/* <LoginScreen /> */}
+          {/* <NavigationContainer> */}
+          <Navigations />
+          {/* </NavigationContainer> */}
         </SignedOut>
         <StatusBar />
       </View>
