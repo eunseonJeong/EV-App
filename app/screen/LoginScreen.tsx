@@ -10,12 +10,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useWarmUpBrowser } from "./hooks/useWarmUpBrowser";
 import { useOAuth } from "@clerk/clerk-expo";
+import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
 
 WebBrowser.maybeCompleteAuthSession();
 
-function LoginScreen() {
+function Login() {
   const link = () => {
     Linking.openURL("https://www.tesla.com/ko_kr/drive");
   };
@@ -26,8 +26,9 @@ function LoginScreen() {
 
   const onPress = async () => {
     try {
-      const { createdSessionId, signIn, signUp, setActive } =
-        await startOAuthFlow();
+      const { createdSessionId, signIn, signUp } = await startOAuthFlow();
+
+      const { setActive }: any | undefined = await startOAuthFlow();
 
       if (createdSessionId) {
         setActive({ session: createdSessionId });
@@ -49,11 +50,11 @@ function LoginScreen() {
     >
       <Image
         style={styles.logoImage}
-        source={require("./../../assets/images/tesla.png")}
+        source={require("@/assets/images/tesla.png")}
       />
       <Image
         style={styles.bgImage}
-        source={require("./../../assets/images/super-car.png")}
+        source={require("@/assets/images/super-car.png")}
       />
       <View style={{ padding: 20 }}>
         <Text style={styles.heading}>
@@ -74,7 +75,7 @@ function LoginScreen() {
   );
 }
 
-export default LoginScreen;
+export default Login;
 
 const styles = StyleSheet.create({
   logoImage: {

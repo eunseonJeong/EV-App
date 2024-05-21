@@ -3,16 +3,16 @@ import { StyleSheet, View, Text, StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
-import LoginScreen from "../(login)/LoginScreen";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
+import Login from "./screen/LoginScreen";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function HomeScreen() {
   const [fontLoaded] = useFonts({
-    "outfit-regular": require("../../assets/fonts/Outfit-Regular.ttf"),
-    "outfit-bold": require("../../assets/fonts/Outfit-Bold.ttf"),
-    "outfit-medium": require("../../assets/fonts/Outfit-Medium.ttf"),
+    "outfit-regular": require("@/assets/fonts/Outfit-Regular.ttf"),
+    "outfit-bold": require("@/assets/fonts/Outfit-Bold.ttf"),
+    "outfit-medium": require("@/assets/fonts/Outfit-Medium.ttf"),
   });
 
   const onLayoutRootView = useCallback(async () => {
@@ -26,13 +26,17 @@ export default function HomeScreen() {
   }
 
   return (
-    <ClerkProvider publishableKey={"publishableKey"}>
+    <ClerkProvider
+      publishableKey={
+        "pk_test_c3RpcnJpbmctc2hyZXctMjUuY2xlcmsuYWNjb3VudHMuZGV2JA"
+      }
+    >
       <View style={styles.container} onLayout={onLayoutRootView}>
         <SignedIn>
           <Text>You are Signed in</Text>
         </SignedIn>
         <SignedOut>
-          <LoginScreen />
+          <Login />
         </SignedOut>
         <StatusBar />
       </View>
