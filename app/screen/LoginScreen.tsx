@@ -16,10 +16,6 @@ import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
 WebBrowser.maybeCompleteAuthSession();
 
 function Login() {
-  const link = () => {
-    Linking.openURL("https://www.tesla.com/ko_kr/drive");
-  };
-
   useWarmUpBrowser();
 
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
@@ -61,9 +57,22 @@ function Login() {
           Tesla는 전기차, 태양광과 가정용 및 기업용 통합 에너지 솔루션을 통해
           지속 가능한 에너지로의 전 세계적 전환을 가속화하고 있습니다.
         </Text>
-        <Text style={styles.desc}>Model 3</Text>
-        <Text style={styles.desc}>Model 5</Text>
-        <Text onPress={link} style={styles.desc}>
+        <Text
+          onPress={() => Linking.openURL("https://www.tesla.com/ko_kr/model3")}
+          style={styles.desc}
+        >
+          Model 3
+        </Text>
+        <Text
+          onPress={() => Linking.openURL("https://www.tesla.com/ko_kr/models")}
+          style={styles.desc}
+        >
+          Model S
+        </Text>
+        <Text
+          onPress={() => Linking.openURL("https://www.tesla.com/ko_kr/drive")}
+          style={styles.desc}
+        >
           시승신청
         </Text>
         {/* //버튼동작 */}
