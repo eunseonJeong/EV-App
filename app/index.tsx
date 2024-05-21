@@ -47,22 +47,19 @@ export default function Page() {
 
   return (
     <ClerkProvider
-      // tokenCache={tokenCache}
+      tokenCache={tokenCache}
       publishableKey={
         "pk_test_c3RpcnJpbmctc2hyZXctMjUuY2xlcmsuYWNjb3VudHMuZGV2JA"
       }
     >
       <View style={styles.container} onLayout={onLayoutRootView}>
         <SignedIn>
-          {/* <NavigationContainer> */}
-          <Navigations />
-          {/* </NavigationContainer> */}
+          <NavigationContainer>
+            <Navigations />
+          </NavigationContainer>
         </SignedIn>
         <SignedOut>
-          {/* <LoginScreen /> */}
-          {/* <NavigationContainer> */}
-          <Navigations />
-          {/* </NavigationContainer> */}
+          <LoginScreen />
         </SignedOut>
         <StatusBar />
       </View>
