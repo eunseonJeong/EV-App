@@ -15,7 +15,7 @@ import { useWarmUpBrowser } from "../hooks/useWarmUpBrowser";
 
 WebBrowser.maybeCompleteAuthSession();
 
-function Login() {
+function LoginScreen() {
   useWarmUpBrowser();
 
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
@@ -84,7 +84,7 @@ function Login() {
   );
 }
 
-export default Login;
+export default LoginScreen;
 
 const styles = StyleSheet.create({
   logoImage: {

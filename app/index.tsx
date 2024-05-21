@@ -4,8 +4,10 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
-import Login from "./screen/LoginScreen";
 import * as SecureStore from "expo-secure-store";
+import LoginScreen from "./screen/LoginScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import Navigations from "./components/Navigations";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,7 +28,7 @@ const tokenCache = {
   },
 };
 
-export default function HomeScreen() {
+export default function Page() {
   const [fontLoaded] = useFonts({
     "outfit-regular": require("@/assets/fonts/Outfit-Regular.ttf"),
     "outfit-bold": require("@/assets/fonts/Outfit-Bold.ttf"),
@@ -45,17 +47,19 @@ export default function HomeScreen() {
 
   return (
     <ClerkProvider
-      tokenCache={tokenCache}
+      // tokenCache={tokenCache}
       publishableKey={
         "pk_test_c3RpcnJpbmctc2hyZXctMjUuY2xlcmsuYWNjb3VudHMuZGV2JA"
       }
     >
       <View style={styles.container} onLayout={onLayoutRootView}>
         <SignedIn>
-          <Text>You are Signed in</Text>
+          {/* <NavigationContainer> */}
+          <Navigations />
+          {/* </NavigationContainer> */}
         </SignedIn>
         <SignedOut>
-          <Login />
+          <LoginScreen />
         </SignedOut>
         <StatusBar />
       </View>
