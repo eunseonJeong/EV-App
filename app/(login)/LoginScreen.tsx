@@ -1,5 +1,7 @@
 import { Colors } from "@/constants/Colors";
 import React from "react";
+import * as WebBrowser from "expo-web-browser";
+
 import {
   Image,
   Linking,
@@ -8,10 +10,33 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useWarmUpBrowser } from "./hooks/useWarmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
+
+WebBrowser.maybeCompleteAuthSession();
 
 function LoginScreen() {
   const link = () => {
     Linking.openURL("https://www.tesla.com/ko_kr/drive");
+  };
+
+  useWarmUpBrowser();
+
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+
+  const onPress = async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow();
+
+      if (createdSessionId) {
+        setActive({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
   };
   return (
     <View
@@ -41,10 +66,7 @@ function LoginScreen() {
           시승신청
         </Text>
         {/* //버튼동작 */}
-        <TouchableOpacity
-          onPress={() => console.log("button")}
-          style={styles.button}
-        >
+        <TouchableOpacity onPress={onPress} style={styles.button}>
           구글 로그인
         </TouchableOpacity>
       </View>

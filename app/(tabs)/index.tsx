@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import LoginScreen from "../(login)/LoginScreen";
+import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -25,10 +26,17 @@ export default function HomeScreen() {
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <LoginScreen />
-      <StatusBar />
-    </View>
+    <ClerkProvider publishableKey={"publishableKey"}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <SignedIn>
+          <Text>You are Signed in</Text>
+        </SignedIn>
+        <SignedOut>
+          <LoginScreen />
+        </SignedOut>
+        <StatusBar />
+      </View>
+    </ClerkProvider>
   );
 }
 
@@ -37,8 +45,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingTop: 25,
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   titleContainer: {
     flexDirection: "row",
